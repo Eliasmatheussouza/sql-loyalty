@@ -9,7 +9,7 @@
 
 CREATE OR REPLACE TABLE `your-project.your_dataset.loyalty_voucher_redemptions`
 AS
-
+-- updated
 WITH email AS (
     SELECT
         a.email,
