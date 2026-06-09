@@ -19,6 +19,9 @@ WITH email AS (
     INNER JOIN
         `your-project.your_dataset.dim_loyalty_customer` b
         ON a.document = LPAD(SAFE_CAST(b.tax_id AS STRING), 11, '0')
+    WHERE
+        REGEXP_CONTAINS(TRIM(a.email), r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+        AND LENGTH(TRIM(a.email)) > 5
     QUALIFY ROW_NUMBER() OVER (PARTITION BY b.customer_id ORDER BY a.updated_at) = 1
 ),
 
